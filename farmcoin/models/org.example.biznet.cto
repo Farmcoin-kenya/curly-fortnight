@@ -1,0 +1,91 @@
+namespace org.example.biznet
+
+/* The type of cerial being sold by the farmer */
+
+enum CerialType {
+  o MAIZE
+  o WHEAT
+  o BEANS
+  o RICE
+}
+
+/* ASSETS */
+/* ------------------------------*/
+asset farmCoin identified by coinId {
+  o String coinId
+  o Date issueDate
+  //a value to show weather the farmer has put up his coin for trade or not
+  o Boolean forTrade
+  //a relationship to show the owner of the coin
+  --> Business owner
+}
+
+
+asset Land identified by LRnumber {
+  o String LRnumber
+  o Address address 
+  o Business owner
+}
+
+asset Account identified by accountID {
+  o String accountID
+  --> Business owner
+  o Double balance
+}
+
+/* CONCEPTS */
+/* THIS IS LIKE MAKING YOUR OWN DATA TYPE */
+/* ------------------------------------- */
+concept Date {
+  o String Date
+  o Double year
+  o Double month
+  o Double date
+
+}
+concept Address {
+  o String Address
+}
+abstract participant Business identified by userID {
+  o String userID
+  o Address address
+  o Double accountBalance
+}
+/* PARTICIPANTS */
+/* --------------------------------------- */
+participant Farmer extends Business{
+
+}
+
+participant GovernmentAgency extends Business{
+
+}
+
+participant bank extends Business{}
+
+participant landRegistrar extends Business{}
+
+
+/* TRANSACTIONS */
+/* -------------------------------------- */ 
+
+/* this is the transaction that is used by the government to pay farmers */
+
+transaction cashTransfer {
+  --> Account from
+  --> Account to
+  o Double amount
+}
+transaction requestForDelivery {
+}
+
+transaction landRegistration {
+  --> Land request
+  o Boolean verified
+}
+
+transaction RegisterUser {
+}
+
+transaction convertCoinsToCash {
+}
