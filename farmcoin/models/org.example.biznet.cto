@@ -2,7 +2,7 @@ namespace org.example.biznet
 
 /* The type of cerial being sold by the farmer */
 
-enum cerealType {
+enum CerialType {
   o MAIZE
   o WHEAT
   o BEANS
@@ -11,26 +11,27 @@ enum cerealType {
 
 /* ASSETS */
 /* ------------------------------*/
-asset farmCoin identified by coinId {
-  o String coinId
-  o Date issueDate
-  //a value to show weather the farmer has put up his coin for trade or not
-  o Boolean forTrade
-  //a relationship to show the owner of the coin
-  --> Business owner
-}
+// asset farmCoin identified by coinId {
+//   o String coinId
+//   o Date issueDate
+//   //a value to show weather the farmer has put up his coin for trade or not
+//   o Boolean forTrade
+//   //a relationship to show the owner of the coin
+//   --> Business owner
+// }
 
 
 asset Land identified by LRnumber {
   o String LRnumber
-  o Address address 
   o Business owner
+
 }
 
 asset Account identified by accountID {
   o String accountID
   --> Business owner
   o Double balance
+  o Double farmCoinBalance
 }
 
 /* CONCEPTS */
@@ -43,12 +44,9 @@ concept Date {
   o Double date
 
 }
-concept Address {
-  o String Address
-}
+
 abstract participant Business identified by userID {
   o String userID
-  o Address address
   o Double accountBalance
 }
 /* PARTICIPANTS */
@@ -57,7 +55,7 @@ participant Farmer extends Business{
 
 }
 
-participant GovernmentAgency extends Business{
+participant governmentAgency extends Business{
 
 }
 
@@ -76,20 +74,31 @@ transaction cashTransfer {
   --> Account to
   o Double amount
 }
-transaction requestForDelivery {
+transaction coinTransfer {
+  --> Account from
+  --> Account to
+  o Double amount
+}
+transaction requestForProduce {
 }
 
-transaction landVerification {
+transaction registerLand{
   --> Land request
   o Boolean verified
 }
 
-transaction landRegistration {
-  --> Land newLand
+transaction registerFarmer {
 }
-
-transaction RegisterUser {
+transaction registerGovernmentAgency {
 }
-
-transaction convertCoinsToCash {
+transaction registerBank {
+}
+transaction registerLandRegistrar {
+}
+transaction payOut {
+  --> Account payee
+}
+transaction confirmSale {
+  --> Account payee
+  o Double saleAmount
 }
