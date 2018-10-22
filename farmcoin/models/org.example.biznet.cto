@@ -2,7 +2,7 @@ namespace org.example.biznet
 
 /* The type of cerial being sold by the farmer */
 
-enum CerialType {
+enum cerealType {
   o MAIZE
   o WHEAT
   o BEANS
@@ -79,9 +79,13 @@ transaction cashTransfer {
 transaction requestForDelivery {
 }
 
-transaction landRegistration {
+transaction landVerifivation {
   --> Land request
   o Boolean verified
+}
+
+transaction landRegistration {
+  --> Land newLand
 }
 
 transaction RegisterUser {
