@@ -10,6 +10,7 @@ function cashTransfer(cashTransfer) {
     } else {
         cashTransfer.from.cashBalance -= cashTransfer.transferAmount;
         cashTransfer.to.cashBalance += cashTransfer.transferAmount;
+        console.log("transfer Successful");
     }
 }
 
@@ -24,6 +25,7 @@ function farmCoinTransfer(farmCoinTransfer) {
     } else {
         farmCoinTransfer.from.farmCoinBalance -= farmCoinTransfer.transferAmount;
         farmCoinTransfer.to.farmCoinBalance += farmCoinTransfer.transferAmount;
+        console.log("transfer Successful");
     }
 }
 
@@ -50,4 +52,8 @@ function payout(payout) {
  * @transaction
  */
 function buyProduce(buyProduce) {
+    cashValueofSale = buyProduce.agreement.numberofBags * buyProduce.agreement.pricePerBag;
+    valueInFarmCoins = cashValueofSale / 1000;
+    buyProduce.payee.farmCoinBalance += valueInFarmCoins;
+    console.log("sale successful")
 }

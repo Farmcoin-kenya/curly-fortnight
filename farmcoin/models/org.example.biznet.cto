@@ -88,5 +88,5 @@ transaction payout {
 //buy produce
 transaction buyProduce{
   --> saleAgreement agreement
-  --> Farmer seller
+  --> UserAccount payee
 }
