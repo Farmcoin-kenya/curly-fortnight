@@ -23,8 +23,8 @@ asset farmCoin identified by coinId {
 
 asset Land identified by LRnumber {
   o String LRnumber
-  o Address address 
   o Business owner
+
 }
 
 asset Account identified by accountID {
@@ -43,12 +43,9 @@ concept Date {
   o Double date
 
 }
-concept Address {
-  o String Address
-}
+
 abstract participant Business identified by userID {
   o String userID
-  o Address address
   o Double accountBalance
 }
 /* PARTICIPANTS */
@@ -57,7 +54,7 @@ participant Farmer extends Business{
 
 }
 
-participant GovernmentAgency extends Business{
+participant governmentAgency extends Business{
 
 }
 
@@ -76,16 +73,23 @@ transaction cashTransfer {
   --> Account to
   o Double amount
 }
-transaction requestForDelivery {
+transaction requestForProduce {
 }
 
-transaction landRegistration {
+transaction registerLand{
   --> Land request
   o Boolean verified
 }
 
-transaction RegisterUser {
+transaction registerFarmer {
 }
-
+transaction registerGovernmentAgency {
+}
+transaction registerBank {
+}
+transaction registerLandRegistrar {
+}
 transaction convertCoinsToCash {
+}
+transaction payOut {
 }
