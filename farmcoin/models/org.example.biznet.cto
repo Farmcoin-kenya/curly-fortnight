@@ -90,3 +90,11 @@ transaction buyProduce{
   --> saleAgreement agreement
   --> UserAccount payee
 }
+//get user account balance
+transaction getUserAccountBalance{
+  --> UserAccount account
+}
+//get organization account balance
+transaction getOrganizationAccountBalance{
+  --> OrganizationAccount account
+}
