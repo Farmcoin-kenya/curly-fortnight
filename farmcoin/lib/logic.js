@@ -13,6 +13,8 @@ function landRegistration(landRegistration, newLand){
     landRegistration.newLand.LRnumber = newLand.landRegistrationNumber;
     landRegistration.newLand.owner = newLand.landOwner;
 }
+//landVerification
+function landVerification(landVerification)
 //registerFarmer
 //registerGovernmentAgency
 //registerBank

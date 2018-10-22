@@ -79,7 +79,7 @@ transaction cashTransfer {
 transaction requestForDelivery {
 }
 
-transaction landVerifivation {
+transaction landVerification {
   --> Land request
   o Boolean verified
 }
