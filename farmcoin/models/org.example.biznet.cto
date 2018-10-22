@@ -1,104 +1,92 @@
 namespace org.example.biznet
 
-/* The type of cerial being sold by the farmer */
-
-enum CerialType {
+enum ProduceType {
   o MAIZE
-  o WHEAT
   o BEANS
+  o WHEAT
   o RICE
 }
-
-/* ASSETS */
-/* ------------------------------*/
-// asset farmCoin identified by coinId {
-//   o String coinId
-//   o Date issueDate
-//   //a value to show weather the farmer has put up his coin for trade or not
-//   o Boolean forTrade
-//   //a relationship to show the owner of the coin
-//   --> Business owner
-// }
-
-
-asset Land identified by LRnumber {
-  o String LRnumber
-  o Business owner
-
-}
-
-asset Account identified by accountID {
-  o String accountID
-  --> Business owner
-  o Double balance
+//User Accounts
+asset UserAccount identified by accountId {
+  o String accountId
+  o Double cashBalance
   o Double farmCoinBalance
+  --> user accountOwner
 }
 
-/* CONCEPTS */
-/* THIS IS LIKE MAKING YOUR OWN DATA TYPE */
-/* ------------------------------------- */
-concept Date {
-  o String Date
-  o Double year
-  o Double month
-  o Double date
-
+//Organization Accounts
+asset OrganizationAccount identified by accountId {
+  o String accountId
+  o Double cashBalance
+  --> Organization accountOwner
 }
 
-abstract participant Business identified by userID {
+//Land owned by farmers
+asset Land identified by landRegistrationNumber {
+  o String landRegistrationNumber
+  o LandApproval approvalStatus
+  --> Farmer owner
+}
+
+//sale agreement
+asset saleAgreement identified by saleID {
+  o String saleID
+  o DateTime saleDate
+  o ProduceType produce
+  o Double numberofBags
+  o Double pricePerBag
+  --> Farmer farmer
+  --> GovtAgency kcpb
+}
+
+//The status of a piece of land
+enum LandApproval {
+  o APPROVED
+  o NOT_APPROVED
+}
+
+
+abstract participant user identified by userID {
   o String userID
-  o Double accountBalance
-}
-/* PARTICIPANTS */
-/* --------------------------------------- */
-participant Farmer extends Business{
-
+  o String userFirstName
+  o String userLastName
 }
 
-participant governmentAgency extends Business{
+abstract participant Organization identified by orgID {
+  o String orgID
+  o String orgName
+}
+
+participant Farmer extends user{
 
 }
 
-participant bank extends Business{}
+participant GovtAgency extends Organization{
 
-participant landRegistrar extends Business{}
+}
 
+participant Bank extends Organization {
 
-/* TRANSACTIONS */
-/* -------------------------------------- */ 
-
-/* this is the transaction that is used by the government to pay farmers */
-
+}
+//transfer money between accounts
 transaction cashTransfer {
-  --> Account from
-  --> Account to
-  o Double amount
+  --> UserAccount from
+  --> UserAccount to
+  o Double transferAmount
 }
-transaction coinTransfer {
-  --> Account from
-  --> Account to
-  o Double amount
+//transfer farm coins between accounts
+transaction farmCoinTransfer {
+  --> UserAccount from
+  --> UserAccount to
+  o Double transferAmount
 }
-transaction requestForProduce {
+//farmer payout
+transaction payout {
+  --> OrganizationAccount from
+  --> UserAccount to
 }
-
-transaction registerLand{
-  --> Land request
-  o Boolean verified
-}
-
-transaction registerFarmer {
-}
-transaction registerGovernmentAgency {
-}
-transaction registerBank {
-}
-transaction registerLandRegistrar {
-}
-transaction payOut {
-  --> Account payee
-}
-transaction confirmSale {
-  --> Account payee
-  o Double saleAmount
+//buy produce
+transaction buyProduce{
+  --> saleAgreement agreement
+  --> Farmer seller
 }
