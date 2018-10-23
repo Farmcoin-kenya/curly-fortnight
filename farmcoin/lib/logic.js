@@ -80,4 +80,5 @@ async function getUserAccountBalance(getUserAccountBalance) {
  */
 async function getOrganizationAccountBalance(getOrganizationAccountBalance) {
     console.log("Cash Balance: ", getOrganizationAccountBalance.account.cashBalance);
+    console.log("Farm Coin Balance: ", getOrganizationAccountBalance.account.farmCoinBalance);
 }

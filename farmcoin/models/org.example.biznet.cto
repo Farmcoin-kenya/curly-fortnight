@@ -18,6 +18,7 @@ asset UserAccount identified by accountId {
 asset OrganizationAccount identified by accountId {
   o String accountId
   o Double cashBalance
+  o Double farmCoinBalance
   --> Organization accountOwner
 }
 
@@ -36,7 +37,7 @@ asset saleAgreement identified by saleID {
   o Double numberofBags
   o Double pricePerBag
   --> Farmer farmer
-  --> GovtAgency kcpb
+  --> GovtAgency agency
 }
 
 //The status of a piece of land
@@ -50,6 +51,7 @@ abstract participant user identified by userID {
   o String userID
   o String userFirstName
   o String userLastName
+  o Integer phoneNumber
 }
 
 abstract participant Organization identified by orgID {
@@ -66,6 +68,10 @@ participant GovtAgency extends Organization{
 }
 
 participant Bank extends Organization {
+
+}
+
+participant Business extends Organization {
 
 }
 //transfer money between accounts
